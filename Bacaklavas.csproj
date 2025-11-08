@@ -7,12 +7,6 @@
         <NoWarn>CS0114</NoWarn>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
     <ItemGroup>
         <PackageReference Include="Yariazen.PlateUp.ModBuildUtilities" Version="1.12.0"/>
     </ItemGroup>
@@ -86,19 +80,9 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <DocumentationFile>bin\$(Configuration)/$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
-
-    <Target Name="Deploy" AfterTargets="Build" Condition="$(EnableModDeployLocal) == 'true'">
-        <Message Text="***********************************************************" Importance="high"/>
-        <Message Text="Running DeployPack target..." Importance="high"/>
-        <Message Text="***********************************************************" Importance="high"/>
-
-        <ItemGroup>
-            <_DLLToCopy Include="$(ProjectDir)/bin/$(Configuration)/$(TargetFramework)/$(AssemblyName).dll"/>
-            <_XMLToCopy Include="$(ProjectDir)/bin/$(Configuration)/$(TargetFramework)/$(AssemblyName).xml"/>
-        </ItemGroup>
-
-        <Copy SourceFiles="@(_DLLToCopy)" DestinationFiles="@(_DLLToCopy->'$(GameModsPath)\$(MSBuildProjectName)\content\%(RecursiveDir)%(Filename)%(Extension)')"/>
-        <Copy Condition="Exists('$(AssetBundlePath)')" SourceFiles="$(AssetBundlePath)" DestinationFiles="$(GameModsPath)\$(MSBuildProjectName)\content\$([System.String]::Copy('$(MSBuildProjectName)').ToLower()).assets"/>
-        <Copy Condition="'$(EnableDocumentation)'" SourceFiles="@(_XMLToCopy)" DestinationFiles="@(_XMLToCopy->'$(GameModsPath)\$(MSBuildProjectName)\content\%(RecursiveDir)%(Filename)%(Extension)')"/>
-    </Target>
+    
+    <!-- Set BuildDir so the package's Deploy target can find the DLL -->
+    <PropertyGroup>
+        <BuildDir>$(ProjectDir)bin/$(Configuration)/$(TargetFramework)/</BuildDir>
+    </PropertyGroup>
 </Project>

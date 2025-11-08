@@ -1,26 +1,38 @@
 ﻿using System.Reflection;
+using Bacaklavas.ItemGroups;
 using KitchenLib;
 using KitchenMods;
 
 namespace Bacaklavas
 {
     public class Main() : BaseMod(MOD_GUID, MOD_NAME, MOD_AUTHOR, MOD_VERSION, "0.0.1", MOD_GAMEVERSION,
-        Assembly.GetExecutingAssembly())
+        Assembly.GetExecutingAssembly()), IModSystem
     {
-        public static readonly string MOD_GUID = "cata.plateup.bacaklavas";
-        public static readonly string MOD_NAME = "Bacaklavas";
-        public static readonly string MOD_VERSION = "0.0.1";
-        public static readonly string MOD_AUTHOR = "Cata";
-        public static readonly string MOD_GAMEVERSION = ">=1.1.3";
+        public const string MOD_GUID = "cata.plateup.bacaklavas";
+        public const string MOD_NAME = "Bacaklavas";
+        public const string MOD_VERSION = "0.0.1";
+        public const string MOD_AUTHOR = "Cata";
+        public const string MOD_GAMEVERSION = ">=1.1.3";
 
-        public void PostActivate(Mod mod)
+        protected override void OnPostActivate(Mod mod)
         {
+            // Dishes
             AddGameDataObject<Bacalao>();
             AddGameDataObject<Baklava>();
+            
+            // Bacalao Items
+            AddGameDataObject<TomatoSoup>();
+            AddGameDataObject<TomatoSoupWithPotato>();
+            AddGameDataObject<BacalaoUncooked>();
+            AddGameDataObject<BacalaoCooked>();
+            
+            // Bacalao Item Groups
+            AddGameDataObject<TomatoSoupGroup>();
+            AddGameDataObject<TomatoSoupWithPotato>();
+            AddGameDataObject<BacalaoUncookedGroup>();
+            
+            // Baklava Items
+            AddGameDataObject<BaklavaCooked>();
         }
-
-        public void PreInject() { }
-
-        public void PostInject() { }
     }
 }
