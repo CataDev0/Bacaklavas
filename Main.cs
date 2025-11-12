@@ -29,7 +29,7 @@ namespace Bacaklavas
             // Bacalao Item Groups
             AddGameDataObject<TomatoSoupGroup>();
             AddGameDataObject<TomatoSoupWithPotato>();
-            AddGameDataObject<BacalaoUncookedGroup>();
+            AddGameDataObject<BacalaoRaw>();
             
             // Baklava Items
             AddGameDataObject<BaklavaCooked>();

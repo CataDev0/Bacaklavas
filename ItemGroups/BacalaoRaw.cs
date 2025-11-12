@@ -7,12 +7,11 @@ using UnityEngine;
 
 namespace Bacaklavas.ItemGroups;
 
-public class BacalaoUncookedGroup : CustomItemGroup
+public class BacalaoRaw : CustomItemGroup
 {
-    public override string UniqueNameID => "cata.Bacalao.uncooked.group";
+    public override string UniqueNameID => "cata.Bacalao.raw.group";
     public override GameObject Prefab => null;
     public override ItemStorage ItemStorageFlags => ItemStorage.StackableFood;
-    public override ItemCategory ItemCategory => ItemCategory.Generic;
     public override Item DisposesTo => (Item)GDOUtils.GetExistingGDO(ItemReferences.Pot);
     
     public override List<ItemGroup.ItemSet> Sets => new()
@@ -21,7 +20,7 @@ public class BacalaoUncookedGroup : CustomItemGroup
         {
             Items = new()
             {
-                (Item)GDOUtils.GetExistingGDO(ItemReferences.FishFilletRaw)
+                (Item)GDOUtils.GetExistingGDO(ItemReferences.Pot)
             },
             Min = 1,
             Max = 1,
@@ -30,11 +29,14 @@ public class BacalaoUncookedGroup : CustomItemGroup
         new ()
         {
             Items = new()
-            {
-                (Item)GDOUtils.GetCustomGameDataObject<TomatoSoupWithPotato>().GameDataObject,
+            {   
+                (Item)GDOUtils.GetExistingGDO(ItemReferences.Water),
+                (Item)GDOUtils.GetExistingGDO(ItemReferences.TomatoChopped),
+                (Item)GDOUtils.GetExistingGDO(ItemReferences.FishFilletRaw),
+                (Item)GDOUtils.GetExistingGDO(ItemReferences.PotatoChopped) 
             },
-            Min = 1,
-            Max = 1,
+            Min = 4,
+            Max = 4,
             IsMandatory = true
         }
     };
